@@ -8,10 +8,10 @@ class Board:
         self.board = [[0 for _ in range(self.size)] for _ in range(self.size)]  # board[i][j] is i-th row, j-th column
 
     def get_row(self, k: int) -> list:
-        return [self.board[k][i] for i in range(self.size)]
+        pass
 
     def get_column(self, k: int) -> list:
-        return [self.board[i][k] for i in range(self.size)]
+        pass
 
     def get_square(self, k: int, l: int) -> list:
         return [self.board[i][j] for i in range(k*self.n, (k+1)*self.n) 
@@ -20,30 +20,11 @@ class Board:
 
     def valid_cell(self, cell: list) -> bool:
         """Returns True if cell is valid, False otherwise."""
-        for item in cell:
-            if item != 0 and cell.count(item) > 1:
-                return False
-        return True
+        pass
 
     def is_valid(self) -> bool:
-        # Check if all rows are valid
-        for i in range(self.size):
-            if not self.valid_cell(self.get_row(i)):
-                return False
-
-        # Check is all columns are valid
-        for i in range(self.size):
-            if not self.valid_cell(self.get_column(i)):
-                return False
-
-        # Check is all squares are valid
-        for i in range(self.n):
-            for j in range(self.n):
-                if not self.valid_cell(self.get_square(i, j)):
-                    return False
-
-        # We've reached this point -- everything must be valid
-        return True
+        """Returns True if board is valid, False otherwise."""
+        pass
 
     def __str__(self):
         full_string = ""
@@ -65,13 +46,9 @@ class Board:
         return full_string
 
     def find_unassigned(self) -> tuple:
-        """Returns 'smallest' (i,j) such that entry at (i,j) is 0. If the whole board is filled returns (-1, -1)."""
-        for i in range(self.size):
-            for j in range(self.size):
-                if self.board[i][j] == 0:
-                    return (i, j)
-        # No 0s in the board. Return (-1, -1).
-        return (-1, -1)
+        """Returns 'smallest' (i,j) such that entry at (i,j) is 0. 
+        If the whole board is filled returns (-1, -1)."""
+        pass
 
     def copy(self):
         return deepcopy(self)
@@ -86,23 +63,5 @@ def backtrack(board: Board) -> tuple:
     Board
         solution to the sudoku. The values will be meaningless if the solution does not exist.
     """
-    stack = [board]
-
-    while len(stack):
-
-        b: Board = stack.pop()
-
-        i, j = b.find_unassigned()
-        
-        if i == -1:
-            return (True, b)
-        
-        for digit in range(1, b.size + 1):
-            new_b = b.copy()
-            new_b.board[i][j] = digit
-
-            if new_b.is_valid():
-                stack.append(new_b)
-
-    return (False, board)
+    pass
 

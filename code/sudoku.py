@@ -46,12 +46,23 @@ class Board:
         return True
 
     def __str__(self):
-        s = ""
+        full_string = ""
         for i in range(self.size):
+            row = ""
             for j in range(self.size):
-                s = s + str(self.board[i][j]) + "   "
-            s = s + "\n\n"
-        return s
+                row += str(self.board[i][j])
+
+                if j % self.n == self.n-1 and j != self.size - 1:
+                    row += " | "
+                else:
+                    row += "   "
+            
+            full_string += row
+            if i % self.n == self.n-1 and i != self.size - 1:   
+                full_string += "\n" + "-"*(len(row)-3) + "\n"
+            else:
+                full_string += "\n\n"
+        return full_string
 
     def find_unassigned(self) -> tuple:
         """Returns 'smallest' (i,j) such that entry at (i,j) is 0. If the whole board is filled returns (-1, -1)."""

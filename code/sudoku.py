@@ -1,3 +1,6 @@
+from copy import deepcopy
+
+
 class Board:
     def __init__(self, n: int):
         self.n: int = n
@@ -49,4 +52,46 @@ class Board:
                 s = s + str(self.board[i][j]) + "   "
             s = s + "\n\n"
         return s
+
+    def find_unassigned(self) -> tuple:
+        """Returns 'smallest' (i,j) such that entry at (i,j) is 0. If the whole board is filled returns (-1, -1)."""
+        for i in range(self.size):
+            for j in range(self.size):
+                if self.board[i][j] == 0:
+                    return (i, j)
+        # No 0s in the board. Return (-1, -1).
+        return (-1, -1)
+
+    def copy(self):
+        return deepcopy(self)
+
+
+def backtrack(board: Board) -> tuple:
+    """
+    Returns
+    -------
+    bool
+        does a solution exist?
+    Board
+        solution to the sudoku. The values will be meaningless if the solution does not exist.
+    """
+    stack = [board]
+
+    while len(stack):
+
+        b: Board = stack.pop()
+
+        i, j = b.find_unassigned()
+        
+        if i == -1:
+            return (True, b)
+        
+        for digit in range(1, b.size + 1):
+            new_b = b.copy()
+            new_b.board[i][j] = digit
+
+            if new_b.is_valid():
+                stack.append(new_b)
+
+    return (False, board)
 
